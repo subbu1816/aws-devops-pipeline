@@ -9,7 +9,14 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git 'https://github.com/subbu1816/aws-devops-pipeline.git'
+    checkout([
+      $class: 'GitSCM',
+      branches: [[name: '*/main']],
+      userRemoteConfigs: [[
+        url: 'https://github.com/subbu1816/aws-devops-pipeline.git',
+        credentialsId: 'github-token'
+      ]]
+    ])
       }
     }
 
