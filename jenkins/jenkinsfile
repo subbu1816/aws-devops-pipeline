@@ -7,31 +7,38 @@ pipeline {
   }
 
   stages {
-    stage('Checkout Code') {
+    stage('Checkout') {
       steps {
-        git 'https://github.com/YOUR-USERNAME/aws-devops-pipeline.git'
+        git 'https://github.com/rnvrsubbu1816@gmail.com/aws-devops-pipeline.git'
       }
     }
 
-    stage('Terraform Init & Apply') {
+    stage('Terraform Init') {
       steps {
-        dir("${env.TF_DIR}") {
+        dir("${TF_DIR}") {
           sh 'terraform init'
+        }
+      }
+    }
+
+    stage('Terraform Apply') {
+      steps {
+        dir("${TF_DIR}") {
           sh 'terraform apply -auto-approve'
         }
       }
     }
 
-    stage('Wait for EC2 Boot') {
+    stage('Wait for EC2') {
       steps {
         sh 'sleep 60'
       }
     }
 
-    stage('Run Ansible Playbook') {
+    stage('Run Ansible') {
       steps {
-        dir("${env.ANSIBLE_DIR}") {
-          sh 'ansible-playbook playbook.yml'
+        dir("${ANSIBLE_DIR}") {
+          sh 'ansible-playbook -i inventory playbook.yml'
         }
       }
     }
