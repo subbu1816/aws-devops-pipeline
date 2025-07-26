@@ -9,8 +9,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git 'https://github.com/subbu1816/aws-devops-pipeline.git
-'
+        git 'https://github.com/subbu1816/aws-devops-pipeline.git'
       }
     }
 
